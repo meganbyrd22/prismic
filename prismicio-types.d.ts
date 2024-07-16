@@ -4,7 +4,82 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type HeadshotDocumentDataSlicesSlice = ImageSlice;
+
+/**
+ * Content for Headshot documents
+ */
+interface HeadshotDocumentData {
+  /**
+   * Headshot field in *Headshot*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: headshot.headshot
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  headshot: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Headshot*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: headshot.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HeadshotDocumentDataSlicesSlice>;
+}
+
+/**
+ * Headshot document from Prismic
+ *
+ * - **API ID**: `headshot`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeadshotDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<HeadshotDocumentData>,
+    "headshot",
+    Lang
+  >;
+
+type ImageDocumentDataSlicesSlice = ImagesSlice;
+
+/**
+ * Content for Image documents
+ */
+interface ImageDocumentData {
+  /**
+   * Slice Zone field in *Image*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ImageDocumentDataSlicesSlice>;
+}
+
+/**
+ * Image document from Prismic
+ *
+ * - **API ID**: `image`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ImageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<ImageDocumentData>, "image", Lang>;
+
+type PageDocumentDataSlicesSlice = HeroSlice | RichTextSlice;
 
 /**
  * Content for Page documents
@@ -164,7 +239,270 @@ interface SkillsDocumentData {
 export type SkillsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<SkillsDocumentData>, "skills", Lang>;
 
-export type AllDocumentTypes = PageDocument | SkillsDocument;
+export type AllDocumentTypes =
+  | HeadshotDocument
+  | ImageDocument
+  | PageDocument
+  | SkillsDocument;
+
+/**
+ * Primary content in *Hero → Default → Primary*
+ */
+export interface HeroSliceDefaultPrimary {
+  /**
+   * eyebrowHeadline field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Eyebrow
+   * - **API ID Path**: hero.default.primary.eyebrowHeadline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  eyebrowHeadline: prismic.KeyTextField;
+
+  /**
+   * title field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * description field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * image field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * callToActionLabel field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.callToActionLabel
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  callToActionLabel: prismic.KeyTextField;
+
+  /**
+   * callToActionLink field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.callToActionLink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  callToActionLink: prismic.LinkField;
+
+  /**
+   * Background color field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.background_color
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  background_color: prismic.ColorField;
+}
+
+/**
+ * Default variation for Hero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Primary content in *Hero → Image Right → Primary*
+ */
+export interface HeroSliceImageRightPrimary {
+  /**
+   * eyebrowHeadline field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Eyebrow
+   * - **API ID Path**: hero.imageRight.primary.eyebrowHeadline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  eyebrowHeadline: prismic.KeyTextField;
+
+  /**
+   * title field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * description field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * image field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * callToActionLabel field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.callToActionLabel
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  callToActionLabel: prismic.KeyTextField;
+
+  /**
+   * callToActionLink field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.callToActionLink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  callToActionLink: prismic.LinkField;
+
+  /**
+   * Background color field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.background_color
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  background_color: prismic.ColorField;
+}
+
+/**
+ * Image Right variation for Hero Slice
+ *
+ * - **API ID**: `imageRight`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSliceImageRight = prismic.SharedSliceVariation<
+  "imageRight",
+  Simplify<HeroSliceImageRightPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Hero*
+ */
+type HeroSliceVariation = HeroSliceDefault | HeroSliceImageRight;
+
+/**
+ * Hero Shared Slice
+ *
+ * - **API ID**: `hero`
+ * - **Description**: Hero
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
+
+/**
+ * Primary content in *Image → Default → Primary*
+ */
+export interface ImageSliceDefaultPrimary {
+  /**
+   * Image field in *Image → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: image.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for Image Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ImageSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Image*
+ */
+type ImageSliceVariation = ImageSliceDefault;
+
+/**
+ * Image Shared Slice
+ *
+ * - **API ID**: `image`
+ * - **Description**: Image
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
+
+/**
+ * Default variation for Images Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImagesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Images*
+ */
+type ImagesSliceVariation = ImagesSliceDefault;
+
+/**
+ * Images Shared Slice
+ *
+ * - **API ID**: `images`
+ * - **Description**: Images
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ImagesSlice = prismic.SharedSlice<"images", ImagesSliceVariation>;
 
 /**
  * Primary content in *RichText → Default → Primary*
@@ -179,6 +517,16 @@ export interface RichTextSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   content: prismic.RichTextField;
+
+  /**
+   * Background color field in *RichText → Default → Primary*
+   *
+   * - **Field Type**: Color
+   * - **Placeholder**: *None*
+   * - **API ID Path**: rich_text.default.primary.background_color
+   * - **Documentation**: https://prismic.io/docs/field#color
+   */
+  background_color: prismic.ColorField;
 }
 
 /**
@@ -221,6 +569,12 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HeadshotDocument,
+      HeadshotDocumentData,
+      HeadshotDocumentDataSlicesSlice,
+      ImageDocument,
+      ImageDocumentData,
+      ImageDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
@@ -228,6 +582,19 @@ declare module "@prismicio/client" {
       SkillsDocumentData,
       SkillsDocumentDataSkillBoxesItem,
       AllDocumentTypes,
+      HeroSlice,
+      HeroSliceDefaultPrimary,
+      HeroSliceImageRightPrimary,
+      HeroSliceVariation,
+      HeroSliceDefault,
+      HeroSliceImageRight,
+      ImageSlice,
+      ImageSliceDefaultPrimary,
+      ImageSliceVariation,
+      ImageSliceDefault,
+      ImagesSlice,
+      ImagesSliceVariation,
+      ImagesSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

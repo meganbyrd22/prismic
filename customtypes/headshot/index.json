@@ -1,0 +1,36 @@
+{
+  "format": "custom",
+  "id": "headshot",
+  "label": "Headshot",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "headshot": {
+        "type": "Image",
+        "config": {
+          "label": "Headshot",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "image": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}
