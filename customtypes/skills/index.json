@@ -1,0 +1,32 @@
+{
+  "format": "custom",
+  "id": "skills",
+  "label": "Skills",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "skill_boxes": {
+        "type": "Group",
+        "config": {
+          "label": "Skill boxes",
+          "repeat": true,
+          "fields": {}
+        }
+      },
+      "skill_color": {
+        "type": "Color",
+        "config": {
+          "label": "Skill Color",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
