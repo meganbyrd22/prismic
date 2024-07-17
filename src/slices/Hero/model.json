@@ -66,6 +66,13 @@
             "label": "Background color",
             "placeholder": ""
           }
+        },
+        "paragraph": {
+          "type": "Text",
+          "config": {
+            "label": "Paragraph",
+            "placeholder": ""
+          }
         }
       },
       "items": {}
@@ -131,6 +138,13 @@
           "type": "Color",
           "config": {
             "label": "Background color",
+            "placeholder": ""
+          }
+        },
+        "paragrap": {
+          "type": "Text",
+          "config": {
+            "label": "Paragrap",
             "placeholder": ""
           }
         }

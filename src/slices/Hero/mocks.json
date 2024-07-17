@@ -74,6 +74,11 @@
 				"__TYPE__": "FieldContent",
 				"value": "#de62a6",
 				"type": "Color"
+			},
+			"paragraph": {
+				"__TYPE__": "FieldContent",
+				"value": "music",
+				"type": "Text"
 			}
 		},
 		"items": []
@@ -160,6 +165,11 @@
 				"__TYPE__": "FieldContent",
 				"value": "#d0d192",
 				"type": "Color"
+			},
+			"paragrap": {
+				"__TYPE__": "FieldContent",
+				"value": "held",
+				"type": "Text"
 			}
 		},
 		"items": []

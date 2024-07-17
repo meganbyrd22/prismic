@@ -318,6 +318,16 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#color
    */
   background_color: prismic.ColorField;
+
+  /**
+   * Paragraph field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.paragraph
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  paragraph: prismic.KeyTextField;
 }
 
 /**
@@ -406,6 +416,16 @@ export interface HeroSliceImageRightPrimary {
    * - **Documentation**: https://prismic.io/docs/field#color
    */
   background_color: prismic.ColorField;
+
+  /**
+   * Paragrap field in *Hero → Image Right → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.imageRight.primary.paragrap
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  paragrap: prismic.KeyTextField;
 }
 
 /**
