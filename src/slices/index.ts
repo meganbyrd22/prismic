@@ -7,4 +7,5 @@ export const components = {
   image: dynamic(() => import("./Image")),
   images: dynamic(() => import("./Images")),
   rich_text: dynamic(() => import("./RichText")),
+  text_block: dynamic(() => import("./TextBlock")),
 };

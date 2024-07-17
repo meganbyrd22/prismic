@@ -239,11 +239,42 @@ interface SkillsDocumentData {
 export type SkillsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<SkillsDocumentData>, "skills", Lang>;
 
+type TextDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Text documents
+ */
+interface TextDocumentData {
+  /**
+   * `slices` field in *Text*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<TextDocumentDataSlicesSlice>;
+}
+
+/**
+ * Text document from Prismic
+ *
+ * - **API ID**: `text`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TextDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<TextDocumentData>, "text", Lang>;
+
 export type AllDocumentTypes =
   | HeadshotDocument
   | ImageDocument
   | PageDocument
-  | SkillsDocument;
+  | SkillsDocument
+  | TextDocument;
 
 /**
  * Primary content in *Hero → Default → Primary*
@@ -579,6 +610,51 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Primary content in *TextBlock → Default → Primary*
+ */
+export interface TextBlockSliceDefaultPrimary {
+  /**
+   * Image field in *TextBlock → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text_block.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for TextBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TextBlockSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextBlockSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TextBlock*
+ */
+type TextBlockSliceVariation = TextBlockSliceDefault;
+
+/**
+ * TextBlock Shared Slice
+ *
+ * - **API ID**: `text_block`
+ * - **Description**: TextBlock
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TextBlockSlice = prismic.SharedSlice<
+  "text_block",
+  TextBlockSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -601,6 +677,9 @@ declare module "@prismicio/client" {
       SkillsDocument,
       SkillsDocumentData,
       SkillsDocumentDataSkillBoxesItem,
+      TextDocument,
+      TextDocumentData,
+      TextDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroSlice,
       HeroSliceDefaultPrimary,
@@ -619,6 +698,10 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      TextBlockSlice,
+      TextBlockSliceDefaultPrimary,
+      TextBlockSliceVariation,
+      TextBlockSliceDefault,
     };
   }
 }
